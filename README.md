@@ -50,7 +50,8 @@ Based on:
 
 ## Usage
 
-* [API Reference (v3.x)](https://github.com/cryptocoinjs/secp256k1-node/blob/master/API.md)
+* [API Reference (v4.x)](https://github.com/cryptocoinjs/secp256k1-node/blob/master/API.md)
+* [API Reference (v3.x)](https://github.com/cryptocoinjs/secp256k1-node/blob/v3.x/API.md)
 * [API Reference (v2.x)](https://github.com/cryptocoinjs/secp256k1-node/blob/v2.x/API.md)
 
 ```js
@@ -66,16 +67,20 @@ const msg = randomBytes(32)
 let privKey
 do {
   privKey = randomBytes(32)
-} while (!secp256k1.privateKeyVerify(privKey))
+} while (!secp256k1.privateKey.verify(privKey))
 
 // get the public key in a compressed format
-const pubKey = secp256k1.publicKeyCreate(privKey)
+const pubKey = secp256k1.publicKey.create(privKey)
 
 // sign the message
-const sigObj = secp256k1.sign(msg, privKey)
+const sigObj = secp256k1.ecdsa.sign(msg, privKey)
 
 // verify the signature
-console.log(secp256k1.verify(msg, sigObj.signature, pubKey))
+console.log(secp256k1.ecdsa.verify(msg, sigObj.signature, pubKey))
+// => true
+
+// recover public key
+console.log(secp256k1.ecdsa.recover(msg, sigObj.signature, sigObj.recid).equals(pubKey))
 // => true
 ```
 
