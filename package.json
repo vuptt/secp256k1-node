@@ -9,7 +9,7 @@
     "secp256k1"
   ],
   "bugs": {
-    "url": "https://github.com/cryptocoinjs/secp256k1-node/issues"
+    "url": "https://github.com/vuptt/secp256k1-node/issues"
   },
   "license": "MIT",
   "author": "Martin Becze <mjbecze@gmail.com>",
@@ -34,17 +34,24 @@
   "main": "./index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cryptocoinjs/secp256k1-node.git"
+    "url": "https://github.com/vuptt/secp256k1-node.git"
   },
   "scripts": {
     "coverage": "RANDOM_TESTS_REPEAT=1 nyc tape test/index.js",
     "coverage-lcov": "npm run coverage && nyc report -r lcov",
     "install": "npm run rebuild || echo \"Secp256k1 bindings compilation fail. Pure JS implementation will be used.\"",
     "lint": "standard",
-    "rebuild": "node-gyp rebuild",
+    "rebuild": "node-pre-gyp install --fallback-to-build",
     "test": "npm run lint && npm run unit",
     "test:browser": "karma start karma.conf.js",
     "unit": "tape test/index.js"
+  },
+  "binary": {
+    "module_name": "secp256k1",
+    "module_path": "./lib/binding/bin/",
+    "package_name": "{module_name}-{platform}-{arch}-{node_abi}.tar.gz",
+    "host": "https://github.com/vuptt/secp256k1-node/releases/download/",
+    "remote_path": "{version}"
   },
   "dependencies": {
     "bindings": "^1.5.0",
@@ -54,6 +61,7 @@
     "drbg.js": "^1.0.1",
     "elliptic": "^6.4.1",
     "nan": "^2.14.0",
+    "node-pre-gyp": "^0.14.0",
     "safe-buffer": "^5.1.2"
   },
   "devDependencies": {
