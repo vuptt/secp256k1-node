@@ -39,8 +39,8 @@
     "unit": "tape test/index.js"
   },
   "binary": {
-    "module_name": "secp256k1",
-    "module_path": "./lib/binding/bin/",
+    "module_name": "addon",
+    "module_path": "./build/Release/",
     "package_name": "{module_name}-{platform}-{arch}-{node_abi}.tar.gz",
     "host": "https://github.com/vuptt/secp256k1-node/releases/download/",
     "remote_path": "{version}"
@@ -48,6 +48,7 @@
   "dependencies": {
     "elliptic": "^6.5.2",
     "node-addon-api": "^2.0.0",
+    "node-gyp-build": "^4.2.0",
     "node-pre-gyp": "^0.14.0"
   },
   "devDependencies": {
